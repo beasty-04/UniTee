@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .converter-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .converter-title {
+            color: #202124;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dadce0;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #5f6368;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Unit Converter</h1>
+            <p>Convert between different units easily</p>
+        </header>
+
+        <div class="converter-grid">
+            <!-- Length Converter -->
+            <div class="converter-card">
+                <h3 class="converter-title">Length Converter</h3>
+                <div class="input-group">
+                    <input type="number" id="lengthInput" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <select id="lengthFrom">
+                        <option value="meter">Meter</option>
+                        <option value="kilometer">Kilometer</option>
+                        <option value="mile">Mile</option>
+                        <option value="foot">Foot</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <select id="lengthTo">
+                        <option value="meter">Meter</option>
+                        <option value="kilometer">Kilometer</option>
+                        <option value="mile">Mile</option>
+                        <option value="foot">Foot</option>
+                    </select>
+                </div>
+                <button onclick="convertLength()">Convert</button>
+                <div class="result" id="lengthResult"></div>
+            </div>
+
+            <!-- Temperature Converter -->
+            <div class="converter-card">
+                <h3 class="converter-title">Temperature Converter</h3>
+                <div class="input-group">
+                    <input type="number" id="tempInput" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <select id="tempFrom">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <select id="tempTo">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </div>
+                <button onclick="convertTemperature()">Convert</button>
+                <div class="result" id="tempResult"></div>
+            </div>
+
+            <!-- Weight Converter -->
+            <div class="converter-card">
+                <h3 class="converter-title">Weight Converter</h3>
+                <div class="input-group">
+                    <input type="number" id="weightInput" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <select id="weightFrom">
+                        <option value="kilogram">Kilogram</option>
+                        <option value="gram">Gram</option>
+                        <option value="pound">Pound</option>
+                        <option value="ounce">Ounce</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <select id="weightTo">
+                        <option value="kilogram">Kilogram</option>
+                        <option value="gram">Gram</option>
+                        <option value="pound">Pound</option>
+                        <option value="ounce">Ounce</option>
+                    </select>
+                </div>
+                <button onclick="convertWeight()">Convert</button>
+                <div class="result" id="weightResult"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 Unit Converter. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+    // Length Conversion
+        function convertLength() {
+        const input = parseFloat(document.getElementById('lengthInput').value);
+        const fromUnit = document.getElementById('lengthFrom').value;
+        const toUnit = document.getElementById('lengthTo').value;
+
+        // Conversion to meters first
+        let meters;
+        switch(fromUnit) {
+            case 'meter': meters = input; break;
+        case 'kilometer': meters = input * 1000; break;
+        case 'mile': meters = input * 1609.34; break;
+        case 'foot': meters = input * 0.3048; break;
+        }
+
+        // Convert from meters to target unit
+        let result;
+        switch(toUnit) {
+            case 'meter': result = meters; break;
+        case 'kilometer': result = meters / 1000; break;
+        case 'mile': result = meters / 1609.34; break;
+        case 'foot': result = meters / 0.3048; break;
+        }
+
+        document.getElementById('lengthResult').innerHTML =
+        `${input} ${fromUnit} = ${result.toFixed(2)} ${toUnit}`;
+    }
+
+        // Temperature Conversion
+        function convertTemperature() {
+        const input = parseFloat(document.getElementById('tempInput').value);
+        const fromUnit = document.getElementById('tempFrom').value;
+        const toUnit = document.getElementById('tempTo').value;
+
+        // Convert to Celsius first
+        let celsius;
+        switch(fromUnit) {
+            case 'celsius': celsius = input; break;
+        case 'fahrenheit': celsius = (input - 32) * 5/9; break;
+        case 'kelvin': celsius = input - 273.15; break;
+        }
+
+        // Convert from Celsius to target unit
+        let result;
+        switch(toUnit) {
+            case 'celsius': result = celsius; break;
+        case 'fahrenheit': result = (celsius * 9/5) + 32; break;
+        case 'kelvin': result = celsius + 273.15; break;
+        }
+
+        document.getElementById('tempResult').innerHTML =
+        `${input} ${fromUnit} = ${result.toFixed(2)} ${toUnit}`;
+    }
+
+        // Weight Conversion
+        function convertWeight() {
+        const input = parseFloat(document.getElementById('weightInput').value);
+        const fromUnit = document.getElementById('weightFrom').value;
+        const toUnit = document.getElementById('weightTo').value;
+
+        // Convert to kilograms first
+        let kilograms;
+        switch(fromUnit) {
+            case 'kilogram': kilograms = input; break;
+        case 'gram': kilograms = input / 1000; break;
+        case 'pound': kilograms = input / 2.20462; break;
+        case 'ounce': kilograms = input / 35.274; break;
+        }
+
+        // Convert from kilograms to target unit
+        let result;
+        switch(toUnit) {
+            case 'kilogram': result = kilograms; break;
+        case 'gram': result = kilograms * 1000; break;
+        case 'pound': result = kilograms * 2.20462; break;
+        case 'ounce': result = kilograms * 35.274; break;
+        }
+
+        document.getElementById('weightResult').innerHTML =
+        `${input} ${fromUnit} = ${result.toFixed(2)} ${toUnit}`;
+    }
+
+    // Input validation helper
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', () => {
+            if (!input.value) {
+                input.parentElement.nextElementSibling
+                    .querySelector('.result').innerHTML = '';
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
