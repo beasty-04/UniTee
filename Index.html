@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Unit Converter Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="min-h-screen bg-gradient-to-br from-blue-100 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <header class="text-center mb-12 space-y-4" x-data="{ darkMode: $persist(false) }">
+                <h1
+                    class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Ultimate Converter Pro Max
+                </h1>
+                <p class="text-gray-600 dark:text-gray-300 text-lg">Minimal Conversion Types</p>
+
+                <button
+                    @click="darkMode = !darkMode; document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')"
+                    class="fixed top-4 right-4 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow">
+                    🌓
+                </button>
+            </header>
+
+            <!-- Dynamic Converter Grid -->
+            <div class="converter-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+
+            <footer class="mt-12 text-center text-gray-600 dark:text-gray-400">
+                <p>© 2025 Unit Converter By Ndips. Copyright reserved.</p>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
