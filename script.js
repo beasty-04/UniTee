@@ -21,11 +21,11 @@ const conversionData = {
         icon: '🌐',
         name: 'Area',
         units: {
-            m2: 1,
-            km2: 1000000,
-            hectare: 10000,
+            m2: 1,           // meter squared
+            km2: 1000000,    // kilometer squared
+            hectare: 10000, 
             acre: 4046.86,
-            ft2: 0.092903
+            ft2: 0.092903    // feet squared
         }
     },
     speed: {
@@ -54,10 +54,10 @@ const conversionData = {
         name: 'Volume',
         units: {
             liter: 1,
-            m3: 1000,
-            gallon_us: 3.78541,
+            m3: 1000,            // meter cubed
+            gallon_us: 3.78541,  
             gallon_uk: 4.54609,
-            ft3: 28.3168
+            ft3: 28.3168         // feet cubed
         }
     },
     pressure: {
